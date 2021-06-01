@@ -1,6 +1,7 @@
 package ru.job4j.collection.map;
 
 import java.util.*;
+import java.util.Map.*;
 
 public class User {
     private String name;
@@ -50,6 +51,8 @@ public class User {
         map.put(user2, new Object());
         System.out.println(user1.hashCode());
         System.out.println(user2.hashCode());
+        System.out.println(map.get(user1));
+        System.out.println(map.get(user2));
 
         Set<Map.Entry<User, Object>> set = map.entrySet();
         for (Map.Entry<User, Object> el : set) {

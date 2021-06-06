@@ -16,7 +16,8 @@ class SimpleTree<E> implements Tree<E> {
         Optional<Node<E>> parentOpt = findBy(parent);
         if (parentOpt.isPresent()) {
             Node<E> parentNode = parentOpt.get();
-            if (parentNode.getChildren().contains(child)) {
+            Optional<Node<E>> searchChild = findByPredicate(x -> x.getValue().equals(child));
+            if (searchChild.isPresent()) {
                 return false;
             }
             parentNode.getChildren().add(new Node<>(child));

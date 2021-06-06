@@ -11,14 +11,6 @@ public class UserConverter {
         this.map = map;
     }
 
-    private void mapConvert() {
-        for (String user : map.keySet()) {
-            for (String email : map.get(user)) {
-                mapConvert.put(email, user);
-            }
-        }
-    }
-
     public HashMap<String, List<String>> userConvert() {
         mapConvert();
         String user;
@@ -35,6 +27,14 @@ public class UserConverter {
             }
         }
         return resultMap;
+    }
+
+    private void mapConvert() {
+        for (String user : map.keySet()) {
+            for (String email : map.get(user)) {
+                mapConvert.put(email, user);
+            }
+        }
     }
 }
 

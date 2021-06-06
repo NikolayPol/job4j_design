@@ -51,6 +51,7 @@ public class SimpleQueueTest {
         queue.push(3);
         assertThat(queue.poll(), is(2));
     }
+
     @Test
     public void whenThreePushThenAllPoll() {
         SimpleQueue<Integer> queue = new SimpleQueue<>();

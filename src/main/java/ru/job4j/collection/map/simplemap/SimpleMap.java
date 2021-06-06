@@ -42,7 +42,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     private void expand() {
         if (count >= LOAD_FACTOR * capacity) {
             int index;
-            capacity = (int) Math.pow(2, Math.log(capacity) / Math.log(2) + 1);
+            capacity *= 2;
             MapEntry<K, V>[] newTable = new MapEntry[capacity];
             for (var el : table) {
                 if (el != null) {
@@ -113,7 +113,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
             if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
-            for (int i = 0; i < table.length; i++) {
+            for (int i = index; i < table.length; i++) {
                 var element = table[i];
                 if (element != null) {
                     index = i;
@@ -128,8 +128,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            count++;
-            return table[index].key;
+            return table[index++].key;
         }
     }
 

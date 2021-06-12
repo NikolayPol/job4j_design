@@ -3,7 +3,6 @@ package ru.job4j.examtask;
 import java.util.*;
 
 public class Analyze {
-
     public Info diff(List<User> previous, List<User> current) {
         Set<User> deleted = new HashSet<>(previous);
         Set<User> added = new HashSet<>(current);

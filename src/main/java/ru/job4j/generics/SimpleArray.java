@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Objects;
 
 public class SimpleArray<T> implements Iterable<T> {
-    private T[] arr;
+    private final T[] arr;
     private int size;
     private int point = 0;
 
@@ -46,7 +46,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new SimpleArrayIterator<>(arr);
+        return new SimpleArrayIterator<>(arr, size);
     }
 
     @Override

@@ -17,9 +17,8 @@ public class SimpleArrayIteratorTest {
         SimpleArray<Integer> simpleArray = new SimpleArray<>(arr);
         simpleArray.add(10);
         simpleArray.add(20);
-        Iterator<Integer> iterator = new SimpleArrayIterator<>(arr);
+        Iterator<Integer> iterator = new SimpleArrayIterator<>(arr, simpleArray.getSize());
         assertTrue(iterator.hasNext());
         assertThat(iterator.next(), is(10));
     }
-
 }

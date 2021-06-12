@@ -55,5 +55,4 @@ public class ListUtilsTest {
         ListUtils.removeAll(list, elements);
         assertThat(list, Is.is(List.of(2, 3)));
     }
-
 }

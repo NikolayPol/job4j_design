@@ -2,6 +2,7 @@ package ru.job4j.io;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
+
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
 import org.junit.Test;
@@ -26,12 +27,12 @@ public class AnalizyTest {
         }
         Analizy.unavailable(source.getAbsolutePath(), target.getAbsolutePath());
         StringBuilder rsl = new StringBuilder();
-        try(BufferedReader in = new BufferedReader(new FileReader(target))) {
+        try (BufferedReader in = new BufferedReader(new FileReader(target))) {
             in.lines().forEach(rsl::append);
         }
         assertThat(rsl.toString(), is(
                 "10:57:01;10:59:01;"
-                +     "11:01:02;11:02:02;"
+                        + "11:01:02;11:02:02;"
         ));
     }
 }

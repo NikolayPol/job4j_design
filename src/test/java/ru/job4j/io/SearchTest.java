@@ -20,8 +20,10 @@ public class SearchTest {
         List<Path> res = Search.search(start, condition);
         Iterator<Path> it = res.listIterator();
         List<String> exp = List.of(
-                "D:\\JD\\PROJECTS\\job4j_design\\.\\target\\site\\jacoco\\jacoco-resources\\prettify.js",
-                "D:\\JD\\PROJECTS\\job4j_design\\.\\target\\site\\jacoco\\jacoco-resources\\sort.js");
+                "D:\\JD\\PROJECTS\\job4j_design\\."
+                        + "\\target\\site\\jacoco\\jacoco-resources\\prettify.js",
+                "D:\\JD\\PROJECTS\\job4j_design\\."
+                        + "\\target\\site\\jacoco\\jacoco-resources\\sort.js");
         assertThat(it.next().toString(), is(exp.get(0)));
         assertThat(it.next().toString(), is(exp.get(1)));
     }

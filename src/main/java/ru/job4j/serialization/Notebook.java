@@ -2,6 +2,8 @@ package ru.job4j.serialization;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -13,7 +15,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @XmlRootElement(name = "notebook")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -36,6 +40,46 @@ public class Notebook {
         this.size = size;
         this.name = name;
         this.cpu = cpu;
+        this.characteristics = characteristics;
+    }
+
+    public boolean isWorkStation() {
+        return workStation;
+    }
+
+    public void setWorkStation(boolean workStation) {
+        this.workStation = workStation;
+    }
+
+    public float getSize() {
+        return size;
+    }
+
+    public void setSize(float size) {
+        this.size = size;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Processor getCpu() {
+        return cpu;
+    }
+
+    public void setCpu(Processor cpu) {
+        this.cpu = cpu;
+    }
+
+    public String[] getCharacteristics() {
+        return characteristics;
+    }
+
+    public void setCharacteristics(String[] characteristics) {
         this.characteristics = characteristics;
     }
 
@@ -70,27 +114,55 @@ public class Notebook {
 //        Notebook notebookMod = gson.fromJson(notebookJson, Notebook.class);
 //        System.out.println(notebookMod);
 
-        // Получаем контекст для доступа к АПИ
-        JAXBContext context = JAXBContext.newInstance(Notebook.class);
-        // Создаем сериализатор
-        Marshaller marshaller = context.createMarshaller();
-        // Указываем, что нам нужно форматирование
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+//        // Получаем контекст для доступа к АПИ
+//        JAXBContext context = JAXBContext.newInstance(Notebook.class);
+//        // Создаем сериализатор
+//        Marshaller marshaller = context.createMarshaller();
+//        // Указываем, что нам нужно форматирование
+//        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+//
+//        try (StringWriter writer = new StringWriter()) {
+//            // Сериализуем
+//            marshaller.marshal(notebook, writer);
+//            String result = writer.getBuffer().toString();
+//            System.out.println(result);
+//
+//            Unmarshaller unmarshaller = context.createUnmarshaller();
+//            try (StringReader reader = new StringReader(result)) {
+//                // десериализуем
+//                Notebook rsl = (Notebook) unmarshaller.unmarshal(reader);
+//                System.out.println(rsl);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
-        try (StringWriter writer = new StringWriter()) {
-            // Сериализуем
-            marshaller.marshal(notebook, writer);
-            String result = writer.getBuffer().toString();
-            System.out.println(result);
+        Processor processor = new Processor();
+        processor.setName("core-i5");
+        processor.setCores(4);
+        /* JSONObject из json-строки строки */
+        JSONObject jsonCpu = new JSONObject("{\"name\":\"core-i5\", \"cores\":\"4\"}");
+        jsonCpu.put("name", processor.getName());
+        jsonCpu.put("cores", processor.getCores());
 
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            try (StringReader reader = new StringReader(result)) {
-                // десериализуем
-                Notebook rsl = (Notebook) unmarshaller.unmarshal(reader);
-                System.out.println(rsl);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        /* JSONArray из ArrayList */
+        List<String> list = new ArrayList<>();
+        list.add("black");
+        list.add("2kg");
+        JSONArray jsonCharacteristics = new JSONArray(list);
+
+        /* JSONObject напрямую методом put */
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("workStation", notebook.isWorkStation());
+        jsonObject.put("size", notebook.getSize());
+        jsonObject.put("name", notebook.getName());
+        jsonObject.put("cpu", jsonCpu);
+        jsonObject.put("characteristics", jsonCharacteristics);
+
+        /* Выведем результат в консоль */
+        System.out.println(jsonObject.toString());
+
+        /* Преобразуем объект person в json-строку */
+        System.out.println(new JSONObject(notebook).toString());
     }
 }

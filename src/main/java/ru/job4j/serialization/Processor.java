@@ -18,6 +18,22 @@ public class Processor {
         this.cores = cores;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getCores() {
+        return cores;
+    }
+
+    public void setCores(int cores) {
+        this.cores = cores;
+    }
+
     @Override
     public String toString() {
         return "Processor{"

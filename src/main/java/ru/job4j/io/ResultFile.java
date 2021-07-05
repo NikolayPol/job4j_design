@@ -7,7 +7,8 @@ public class ResultFile {
         try (FileOutputStream out = new FileOutputStream("result.txt", false)) {
             for (int i = 1; i < 10; i++) {
                 for (int j = 1; j < 10; j++) {
-                    byte[] bytes = (i + " * " + j + " = " + i * j + "\n").getBytes();
+                    byte[] bytes = (i + " * " + j + " = " + i * j
+                            + System.lineSeparator()).getBytes();
                     out.write(bytes);
                 }
             }

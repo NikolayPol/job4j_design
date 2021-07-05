@@ -48,12 +48,12 @@ public class ConsoleChat {
                 }
             }
             if (question.equalsIgnoreCase(OUT)) {
+                recordHistory(history);
                 System.exit(1);
             }
             answer = answers[new Random().nextInt(answers.length)];
             System.out.println(answer);
             history.add(answer);
-            recordHistory(history);
         }
     }
 

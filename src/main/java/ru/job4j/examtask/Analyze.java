@@ -4,28 +4,48 @@ import java.util.*;
 
 public class Analyze {
     public Info diff(List<User> previous, List<User> current) {
-        Set<User> deleted = new HashSet<>(previous);
-        Set<User> added = new HashSet<>(current);
-        Set<User> changed = new HashSet<>(previous);
-
-        deleted.removeAll(current);
-        added.removeAll(previous);
-        changed.retainAll(current);
-
-        int count = 0;
-        for (User user1 : changed) {
-            for (User user2 : current) {
-                if (user1.getId() == user2.getId()
-                        && !(user1.getName().equals(user2.getName()))) {
-                    count++;
-                }
+        int added = 0;
+        int deleted = 0;
+        int changed = 0;
+        for (User user : current) {
+            if (!previous.contains(user)) {
+                added++;
             }
         }
 
+        for (User user : previous) {
+            if (!current.contains(user)) {
+                deleted++;
+            }
+        }
+
+        for (User user : current) {
+            if (previous.contains(user)) {
+                changed++;
+            }
+        }
+//        Set<User> deleted = new HashSet<>(previous);
+//        Set<User> added = new HashSet<>(current);
+//        Set<User> changed = new HashSet<>(previous);
+//
+//        deleted.removeAll(current);
+//        added.removeAll(previous);
+//        changed.retainAll(current);
+//
+//        int count = 0;
+//        for (User user1 : changed) {
+//            for (User user2 : current) {
+//                if (user1.getId() == user2.getId()
+//                        && !(user1.getName().equals(user2.getName()))) {
+//                    count++;
+//                }
+//            }
+//        }
+
         Info info = new Info();
-        info.setDeleted(deleted.size());
-        info.setAdded(added.size());
-        info.setChanged(count);
+        info.setDeleted(deleted);
+        info.setAdded(added);
+        info.setChanged(changed);
         return info;
     }
 

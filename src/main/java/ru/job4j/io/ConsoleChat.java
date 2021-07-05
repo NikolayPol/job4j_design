@@ -29,6 +29,12 @@ public class ConsoleChat {
         String question;
         String answer;
         boolean start = true;
+        try {
+            Path p = Paths.get(botAnswers);
+            answers = Files.lines(p, StandardCharsets.UTF_8).toArray(String[]::new);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         while (start) {
             question = scanner.nextLine();
             history.add(question);
@@ -44,21 +50,18 @@ public class ConsoleChat {
             if (question.equalsIgnoreCase(OUT)) {
                 System.exit(1);
             }
-
-            try {
-                Path p = Paths.get(botAnswers);
-                answers = Files.lines(p, StandardCharsets.UTF_8).toArray(String[]::new);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             answer = answers[new Random().nextInt(answers.length)];
             System.out.println(answer);
             history.add(answer);
-            try (PrintWriter pw = new PrintWriter(path, StandardCharsets.UTF_8)) {
-                history.forEach(pw::println);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            recordHistory(history);
+        }
+    }
+
+    private void recordHistory(List<String> history) {
+        try (PrintWriter pw = new PrintWriter(path, StandardCharsets.UTF_8)) {
+            history.forEach(pw::println);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

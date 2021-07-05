@@ -28,7 +28,8 @@ public class LogFilter {
                 new BufferedOutputStream(
                         new FileOutputStream(file, false)))) {
             for (String line  : log) {
-                out.write(line + System.lineSeparator());
+                //out.write(line + System.lineSeparator());
+                out.println(line);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

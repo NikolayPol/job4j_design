@@ -70,4 +70,3 @@ having count(p.type_id) < 3;
 --8. Вывести все продукты и их тип.
 select p.name, t.name from product p
 inner join type t on p.type_id = t.id
-

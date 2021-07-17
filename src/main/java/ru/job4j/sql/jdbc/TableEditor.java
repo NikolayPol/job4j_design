@@ -58,8 +58,8 @@ public class TableEditor implements AutoCloseable {
     public void addColumn(String tableName, String columnName, String type) {
 //        String sql = "alter table " + tableName + " add column " + columnName + " " + type;
         String sql = String.format(
-                "alter table %s " +
-                        "add column %s %s",
+                "alter table %s "
+                + "add column %s %s",
                 tableName,
                 columnName,
                 type
@@ -75,8 +75,8 @@ public class TableEditor implements AutoCloseable {
 
     public void dropColumn(String tableName, String columnName) {
         String sql = String.format(
-                "alter table %s " +
-                "drop column \"%s\"",
+                "alter table %s "
+                + "drop column \"%s\"",
                 tableName,
                 columnName
         );
@@ -90,8 +90,8 @@ public class TableEditor implements AutoCloseable {
 
     public void renameColumn(String tableName, String columnName, String newColumnName) {
         String sql = String.format(
-                "alter table %s " +
-                "rename column %s to \"%s\"",
+                "alter table %s "
+                + "rename column %s to \"%s\"",
                 tableName,
                 columnName,
                 newColumnName
@@ -103,7 +103,6 @@ public class TableEditor implements AutoCloseable {
             throwables.printStackTrace();
         }
     }
-
 
     public static String getTableScheme(Connection connection, String tableName) throws Exception {
         var rowSeparator = "-".repeat(30).concat(System.lineSeparator());

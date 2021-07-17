@@ -12,10 +12,10 @@ import java.util.Properties;
 public class ConnectionDemo {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Properties properties = new Properties();
-        String PATH_TO_PROPERTIES =
+        String pathToProperties =
                 "src/main/java/ru/job4j/sql/jdbc/app.properties";
         try {
-            properties.load(new FileInputStream(PATH_TO_PROPERTIES));
+            properties.load(new FileInputStream(pathToProperties));
         } catch (IOException e) {
             e.printStackTrace();
         }

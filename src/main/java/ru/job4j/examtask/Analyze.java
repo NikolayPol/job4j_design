@@ -1,46 +1,31 @@
 package ru.job4j.examtask;
 
+import org.apache.commons.collections.map.HashedMap;
+
 import java.util.*;
 
 public class Analyze {
     public Info diff(List<User> previous, List<User> current) {
         int added = 0;
-        int deleted = 0;
+        int deleted;
         int changed = 0;
-        for (User user : current) {
-            if (!previous.contains(user)) {
+        HashedMap map = new HashedMap();
+
+        for (int i = 0; i < previous.size(); i++) {
+            map.put(i, previous.get(i));
+        }
+
+        deleted = map.size();
+        for (User userCurrent : current) {
+            if (!map.containsKey(userCurrent.getId())) {
                 added++;
-            }
-        }
-
-        for (User user : previous) {
-            if (!current.contains(user)) {
-                deleted++;
-            }
-        }
-
-        for (User user : current) {
-            if (previous.contains(user)) {
+            } else if (!userCurrent.getName().equals(map.get(userCurrent.getId()))) {
                 changed++;
             }
+            if (map.containsKey(userCurrent.getId())) {
+                deleted--;
+            }
         }
-//        Set<User> deleted = new HashSet<>(previous);
-//        Set<User> added = new HashSet<>(current);
-//        Set<User> changed = new HashSet<>(previous);
-//
-//        deleted.removeAll(current);
-//        added.removeAll(previous);
-//        changed.retainAll(current);
-//
-//        int count = 0;
-//        for (User user1 : changed) {
-//            for (User user2 : current) {
-//                if (user1.getId() == user2.getId()
-//                        && !(user1.getName().equals(user2.getName()))) {
-//                    count++;
-//                }
-//            }
-//        }
 
         Info info = new Info();
         info.setDeleted(deleted);

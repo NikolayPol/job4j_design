@@ -30,8 +30,7 @@ public class ConsoleChat {
         String answer;
         boolean start = true;
         try {
-            Path p = Paths.get(botAnswers);
-            answers = Files.lines(p, StandardCharsets.UTF_8).toArray(String[]::new);
+            answers = answersFromFile(botAnswers);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,6 +41,7 @@ public class ConsoleChat {
                 question = scanner.nextLine();
                 while (!question.equalsIgnoreCase(CONTINUE)) {
                     question = scanner.nextLine();
+                    history.add(question);
                 }
                 if (question.equalsIgnoreCase(CONTINUE)) {
                     continue;
@@ -55,6 +55,11 @@ public class ConsoleChat {
             System.out.println(answer);
             history.add(answer);
         }
+    }
+
+    private String[] answersFromFile(String botAnswers) throws IOException {
+        Path p = Paths.get(botAnswers);
+        return Files.lines(p, StandardCharsets.UTF_8).toArray(String[]::new);
     }
 
     private void recordHistory(List<String> history) {

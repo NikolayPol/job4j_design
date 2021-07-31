@@ -1,5 +1,6 @@
 --drop table attachs, category, comments, item, role, rules, state, users;
---Пользователи
+
+--Категории заявки
 create table category(
     id serial primary key,
     name varchar(255)
@@ -9,40 +10,52 @@ create table state(
     id serial primary key,
     name varchar(255)
 );
---Роли
+--Заявки
 create table item(
     id serial primary key,
     name varchar(255),
-    categoty_id int references category(id),
+    category_id int references category(id),
     state_id int references state(id)
 );
---Права ролей
+
+--Пользователи
 create table users(
-    id serial primary key,
-    name varchar(255),
-    item_id int references item(id)
-);
---Заявки
-create table role(
-    id serial primary key,
-    name varchar(255),
-    user_id int references users(id)
-);
---Комментарии заявок
-create table rules(
     id serial primary key,
     name varchar(255),
     role_id int references role(id)
 );
---Приложенные файлы
+
+--Роли
+create table role(
+    id serial primary key,
+    name varchar(255),
+    rules_id int references rules(id)
+
+);
+
+--таблица для связи role-rules
+create table role_rules(
+    id serial primary key,
+    role_id int references role(id),
+    rules_id int references rules(id)
+);
+
+--Права ролей
+create table rules(
+    id serial primary key,
+    name varchar(255)
+);
+
+--Комментарии заявок
 create table comments(
     id serial primary key,
     comment text,
     item_id int references item(id)
 );
---Категории заявки
+
+--Приложенные файлы
 create table attachs(
     id serial primary key,
     name varchar(255),
-    item_id int references item(id)
+    item_id int references attachs(id)
 );

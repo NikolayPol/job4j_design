@@ -27,15 +27,22 @@ public class TableEditor implements AutoCloseable {
         System.out.println(metaData.getURL());
     }
 
-    public void createTable(String tableName) {
-        String sql = String.format(
-                "create table if not exists %s (%s, %s);",
-                tableName,
-                "id serial primary key",
-                "name text"
-        );
+    public void createStatement(Connection connection, String sql) {
         try (Statement statement = connection.createStatement()) {
             statement.execute(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void createTable(String tableName) {
+        String sql = String.format(
+                "create table if not exists %s (%s);",
+                tableName,
+                "id serial primary key"
+        );
+        createStatement(connection, sql);
+        try {
             System.out.println(getTableScheme(connection, tableName));
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,61 +54,43 @@ public class TableEditor implements AutoCloseable {
                 "drop table %s",
                 tableName
         );
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(sql);
-            System.out.println("Table " + tableName + " drop succeessfully");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        createStatement(connection, sql);
+        System.out.println("Table " + tableName + " drop succeessfully");
     }
 
     public void addColumn(String tableName, String columnName, String type) {
-//        String sql = "alter table " + tableName + " add column " + columnName + " " + type;
         String sql = String.format(
                 "alter table %s "
-                + "add column %s %s",
+                        + "add column %s %s",
                 tableName,
                 columnName,
                 type
         );
-        System.out.println(sql);
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(sql);
-            System.out.println("Column " + columnName + " added succeessfully into " + tableName);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        createStatement(connection, sql);
+        System.out.println("Column " + columnName + " added succeessfully into " + tableName);
     }
 
     public void dropColumn(String tableName, String columnName) {
         String sql = String.format(
                 "alter table %s "
-                + "drop column \"%s\"",
+                        + "drop column \"%s\"",
                 tableName,
                 columnName
         );
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(sql);
-            System.out.println("Column " + columnName + " droped succeessfully into " + tableName);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        createStatement(connection, sql);
+        System.out.println("Column " + columnName + " droped succeessfully into " + tableName);
     }
 
     public void renameColumn(String tableName, String columnName, String newColumnName) {
         String sql = String.format(
                 "alter table %s "
-                + "rename column %s to \"%s\"",
+                        + "rename column %s to \"%s\"",
                 tableName,
                 columnName,
                 newColumnName
         );
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(sql);
-            System.out.println("Column " + columnName + " renamed succeessfully into " + tableName);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        createStatement(connection, sql);
+        System.out.println("Column " + columnName + " renamed succeessfully into " + tableName);
     }
 
     public static String getTableScheme(Connection connection, String tableName) throws Exception {

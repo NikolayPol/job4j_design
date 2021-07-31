@@ -47,7 +47,7 @@ where type.name='Сыр';
 select * from product where name like 'Мороженое%';
 
 --3. Написать запрос, который выводит все продукты, срок годности которых уже истек
-select * from product where expired_date<'2021-07-11';
+select * from product where expired_date<now();
 
 --4. Написать запрос, который выводит самый дорогой продукт.
 select name, price from product

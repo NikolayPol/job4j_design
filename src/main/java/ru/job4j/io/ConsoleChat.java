@@ -43,9 +43,7 @@ public class ConsoleChat {
                     question = scanner.nextLine();
                     history.add(question);
                 }
-                if (question.equalsIgnoreCase(CONTINUE)) {
-                    continue;
-                }
+                continue;
             }
             if (question.equalsIgnoreCase(OUT)) {
                 recordHistory(history);

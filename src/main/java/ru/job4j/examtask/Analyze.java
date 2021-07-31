@@ -1,7 +1,5 @@
 package ru.job4j.examtask;
 
-import org.apache.commons.collections.map.HashedMap;
-
 import java.util.*;
 
 public class Analyze {
@@ -9,10 +7,10 @@ public class Analyze {
         int added = 0;
         int deleted;
         int changed = 0;
-        HashedMap map = new HashedMap();
+        HashMap<Integer, User> map = new HashMap<>();
 
-        for (int i = 0; i < previous.size(); i++) {
-            map.put(i, previous.get(i));
+        for (User user : previous) {
+            map.put(user.getId(), user);
         }
 
         deleted = map.size();

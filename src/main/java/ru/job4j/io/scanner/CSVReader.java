@@ -83,5 +83,8 @@ public class CSVReader {
     public static void main(String[] args) throws IOException {
         CSVReader csvReader = CSVReader.of(args);
         csvReader.execute();
+
+        //D:\JD\PROJECTS\job4j_design\src\main\java\ru\job4j\io\scanner>javac CSVReader.java
+        //D:\JD\PROJECTS\job4j_design\src\main\java\ru\job4j\io\scanner>java CSVReader.java
     }
 }
